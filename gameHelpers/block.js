@@ -14,9 +14,9 @@ export const rotateClockwise = (shape = Immutable.List()) => shape.reduce(rotate
 
 
 
-const rotateColumnCounterclockwise = (shape, col, index) => shape.update(index, (oldRow = Immutable.List()) => oldRow.push(col));
+const rotateColumnCounterclockwise = (shape, col, index, {size}) => shape.update(size - 1 - index, (oldRow = Immutable.List()) => oldRow.push(col));
 
-const rotateRowCounterclockwise = (shape, row) => row.reduce((newShape, col, index) => rotateColumnCounterclockwise(newShape, col, row.size - 1 - index), shape);
+const rotateRowCounterclockwise = (shape, row) => row.reduceRight(rotateColumnCounterclockwise, shape);
 
 export const rotateCounterclockwise = (shape = Immutable.List()) => shape.reduce(rotateRowCounterclockwise, Immutable.List());
 
